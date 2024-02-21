@@ -1,10 +1,12 @@
 import secrets
 import socket
+from server import Server
 
 
 class Client:
     def __init__(self):
         self.website_name = input("Website Name: ")
+        self.request = ""
 
     def tcp_connect(self, ip_address):
         message = f"GET / HTTP/1.1\r\nHost:www.{self.website_name}\r\n\r\n".encode()
@@ -40,5 +42,10 @@ class Client:
         qname += b'\0'  # terminates with the zero length octet for the null label of the root.
         qtype = int.to_bytes(qtype, length=2, byteorder='big')
         question = qname + qtype + qclass
-        request = header + question
-        return request
+        self.request = header + question
+
+    def run(self):
+        self.make_request()
+        dns_resolver = Server()
+        ip_address = dns_resolver.run(self.request)
+        self.tcp_connect(ip_address)
