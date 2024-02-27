@@ -48,4 +48,13 @@ class Client:
         self.make_request()
         dns_resolver = Server()
         ip_address = dns_resolver.run(self.request)
+        if ip_address == 0:
+            print("TIMEOUT ERROR AT ROOT")
+            return
+        if ip_address == 1:
+            print("TIMEOUT ERROR AT TLD")
+            return
+        if ip_address == 2:
+            print("TIMEOUT ERROR AT AUTHORITATIVE")
+            return
         self.tcp_connect(ip_address)

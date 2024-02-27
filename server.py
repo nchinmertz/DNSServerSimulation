@@ -47,7 +47,6 @@ class Server:
             qtype, remaining = self.parse_int(remaining, 2)
             qclass, remaining = self.parse_int(remaining, 2)
             self.domain_name = domain
-            print(domain)
 
         # parse answer section
         for answer in range(ancount):
@@ -120,7 +119,7 @@ class Server:
                 try:
                     response, serveraddr = s.recvfrom(512)
                 except socket.timeout:
-                    return 0
+                    return i
                 self.ip_tree.append(ip)
                 self.answers = []
                 self.additions = []
