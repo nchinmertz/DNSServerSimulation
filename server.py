@@ -1,6 +1,5 @@
-import secrets
 import socket
-from datetime import datetime
+import secrets
 
 
 class Server:

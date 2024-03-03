@@ -1,5 +1,5 @@
-import secrets
 import socket
+import secrets
 from server import Server
 
 
